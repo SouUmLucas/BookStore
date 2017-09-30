@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:commandButton value="Listar" action="#{MBAudits.actionCrud('list')}" ajax="false" />
+            <p:dataTable var="audit" value="#{MBAudits.audits}">
+            <p:column headerText="ID">
+                <h:outputText value="#{audit.id}" />
+            </p:column>
+
+            <p:column headerText="Ação">
+                <h:outputText value="#{audit.action}" />
+            </p:column>
+
+            <p:column headerText="Tabela">
+                <h:outputText value="#{audit.resource}" />
+            </p:column>
+
+            <p:column headerText="Campo">
+                <h:outputText value="#{audit.field}" />
+            </p:column>
+
+            <p:column headerText="Id do item">
+                <h:outputText value="#{audit.resourceId}" />
+            </p:column>
+
+            <p:column headerText="Valor antigo">
+                <h:outputText value="#{audit.oldValue}" />
+            </p:column>
+
+            <p:column headerText="Valor novo">
+                <h:outputText value="#{audit.newValue}" />
+            </p:column>
+
+        </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

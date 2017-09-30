@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:growl id="message" autoUpdate="true" sticky="false" life="5000"/>
+    <h:panelGrid columns="2" style="margin: 1%" cellpadding="7">
+        <p:outputLabel for="author" value="Autor: "/>
+        <p:inputText id="author" value="#{MBBooks.book.author}" />
+
+        <p:outputLabel for="categories" value="Categoria: "/>
+        <p:selectManyButton id="categories" value="#{MBBooks.book.categories}">
+            <c:forEach items="${MBBooks.categories}" var="item">
+                <f:selectItem itemLabel="#{item.name}" itemValue="#{item.name}" />
+            </c:forEach>
+        </p:selectManyButton>
+
+        <p:outputLabel for="year" value="Ano: "/>
+        <p:inputText id="year" value="#{MBBooks.book.year}" />
+
+        <p:outputLabel for="title" value="Título: "/>
+        <p:inputText id="title" value="#{MBBooks.book.title}" />
+
+        <p:outputLabel for="publisher" value="Editora: "/>
+        <p:inputText id="publisher" value="#{MBBooks.book.publisher}" />
+
+        <p:outputLabel for="edition" value="Edição: "/>
+        <p:inputText id="edition" value="#{MBBooks.book.edition}" />
+
+        <p:outputLabel for="isbn" value="ISBN: "/>
+        <p:inputText id="isbn" value="#{MBBooks.book.isbn}" />
+
+        <p:outputLabel for="pages" value="Número de páginas: "/>
+        <p:inputText id="pages" value="#{MBBooks.book.pages}" />
+
+        <p:outputLabel for="synopsis" value="Sinópse "/>
+        <p:inputTextarea id="synopsis" value="#{MBBooks.book.synopsis}" rows="6" cols="33" />
+
+        <p:outputLabel for="dimensions" value="Dimensões: "/>
+        <p:inputText id="dimensions" value="#{MBBooks.book.dimensions}" />
+
+        <p:outputLabel for="pricesGroups" value="Grupo de preços:" />
+        <p:selectOneMenu id="pricesGroups" value="#{MBBooks.book.priceGroup}" style="width:125px">
+            <f:selectItem itemLabel="Standard" itemValue="1" />
+            <f:selectItem itemLabel="Promoção" itemValue="2" />
+        </p:selectOneMenu>
+
+        <p:outputLabel for="barcode" value="Código de barras: "/>
+        <p:inputText id="barcode" value="#{MBBooks.book.barCode}" />
+
+        <p:commandButton value="Salvar" action="#{MBBooks.actionCrud('save')}" ajax="false" />
+    </h:panelGrid>
+</html>
+
