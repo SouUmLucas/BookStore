@@ -11,6 +11,7 @@ public class Client extends DomainEntity {
     private String phone;
     private String email;
     private String homeAddress;
+    private String password;
     private List<DeliveryAddress> deliveryAddresses;
     private List<CreditCard> creditCards;
 
@@ -64,6 +65,14 @@ public class Client extends DomainEntity {
 
     public String getHomeAddress() {
         return homeAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setHomeAddress(String homeAddress) {

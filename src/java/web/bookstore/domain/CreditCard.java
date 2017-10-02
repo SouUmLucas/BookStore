@@ -1,11 +1,20 @@
 package web.bookstore.domain;
 
 public class CreditCard {
+    private Client client;
     private String number;
     private String name;
     private String expirationDate;
     private String ccv;
+    
+    public Client getClient() {
+        return client;
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    
     public String getNumber() {
         return number;
     }

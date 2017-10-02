@@ -25,7 +25,6 @@ public class CategoryDAO extends AbstractDAO {
         String sql = "INSERT INTO categories(fk_book, name) " +
                      "VALUES(?,?)";
         
-        
         try (Connection conn = DAOFactory.connect()) {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, category.getBookId());

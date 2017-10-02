@@ -1,6 +1,7 @@
 package web.bookstore.domain;
 
 public class DeliveryAddress {
+    private Client client;
     private String residenceType;
     private String streetType; // tipo de logradouro
     private String streetName; // logradouro
@@ -10,6 +11,14 @@ public class DeliveryAddress {
     private String city;
     private String state;
     private String country;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public String getResidenceType() {
         return residenceType;
