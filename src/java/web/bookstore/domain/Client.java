@@ -13,7 +13,7 @@ public class Client extends DomainEntity {
     private String homeAddress;
     private String password;
     private List<DeliveryAddress> deliveryAddresses;
-    private List<CreditCard> creditCards;
+    private List<ClientCreditCard> clientCreditCards;
 
     public String getGender() {
         return gender;
@@ -87,13 +87,11 @@ public class Client extends DomainEntity {
         this.deliveryAddresses = deliveryAddresses;
     }
 
-    public List<CreditCard> getCreditCards() {
-        return creditCards;
+    public List<ClientCreditCard> getClientCreditCards() {
+        return clientCreditCards;
     }
 
-    public void setCreditCards(List<CreditCard> creditCards) {
-        this.creditCards = creditCards;
+    public void setClientCreditCards(List<ClientCreditCard> clientCreditCards) {
+        this.clientCreditCards = clientCreditCards;
     }
-    
-    
 }

@@ -6,12 +6,14 @@ import java.util.Map;
 import web.bookstore.dao.IDAO;
 import web.bookstore.dao.impl.AuditDAO;
 import web.bookstore.dao.impl.BookDAO;
+import web.bookstore.dao.impl.ClientCreditCardDAO;
 import web.bookstore.dao.impl.ClientDAO;
 import web.bookstore.dao.impl.CreditCardDAO;
 import web.bookstore.dao.impl.DeliveryAddressDAO;
 import web.bookstore.domain.Audit;
 import web.bookstore.domain.Book;
 import web.bookstore.domain.Client;
+import web.bookstore.domain.ClientCreditCard;
 import web.bookstore.domain.CreditCard;
 import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.DomainEntity;
@@ -34,6 +36,7 @@ public class Facade implements IFacade {
         daos.put(Audit.class.getName(), new AuditDAO());
         daos.put(Client.class.getName(), new ClientDAO());
         daos.put(CreditCard.class.getName(), new CreditCardDAO());
+        daos.put(ClientCreditCard.class.getName(), new ClientCreditCardDAO());
         daos.put(DeliveryAddress.class.getName(), new DeliveryAddressDAO());
     }
 
