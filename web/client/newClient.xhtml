@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h3>Adicionando</h3>
     <p:growl id="message" autoUpdate="true" sticky="false" life="5000"/>
     <h:panelGrid columns="2" style="margin: 1%" cellpadding="7">
@@ -31,8 +32,56 @@
         
         <p:outputLabel for="homeaddres" value="Endereço Residêncial: "/>
         <p:inputText id="homeaddres" value="#{MBClients.client.homeAddress}" />
-        
-        <p:commandButton value="Salvar" action="#{MBClients.actionCrud('save')}" ajax="false" />
     </h:panelGrid>
+    
+    <h3>Endereços de entrega</h3>
+    <ui:repeat value="#{MBClients.deliveryAddresses}" var="deliveryAddress">
+        <h:panelGrid columns="4">
+            <p:outputLabel for="residenceType" value="Tipo de residência: "/>
+            <p:inputText id="residenceType" value="#{deliveryAddress.residenceType}" />
+            
+            <p:outputLabel for="streetType" value="Logradouro: "/>
+            <p:inputText id="streetType" value="#{deliveryAddress.streetType}" />
+            
+            <p:outputLabel for="streetName" value="Nome da rua: "/>
+            <p:inputText id="streetType" value="#{deliveryAddress.streetName}" />
+            
+            <p:outputLabel for="streetNumber" value="Número: "/>
+            <p:inputText id="streetNumber" value="#{deliveryAddress.number}" />
+            
+            <p:outputLabel for="neighborhood" value="Bairro: "/>
+            <p:inputText id="neighborhood" value="#{deliveryAddress.neighborhood}" />
+            
+            <p:outputLabel for="zipcode" value="CEP: "/>
+            <p:inputText id="zipcode" value="#{deliveryAddress.zipCode}" />
+            
+            <p:outputLabel for="city" value="Cidade: "/>
+            <p:inputText id="city" value="#{deliveryAddress.city}" />
+            
+            <p:outputLabel for="state" value="State: "/>
+            <p:inputText id="state" value="#{deliveryAddress.state}" />
+            
+            <p:outputLabel for="country" value="País: "/>
+            <p:inputText id="country" value="#{deliveryAddress.country}" />
+        </h:panelGrid>
+    </ui:repeat>
+    <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addDeliveryAddress}'></p:commandButton>
+    
+    <h3>Cartões de crédito</h3>
+    <ui:repeat value="#{MBClients.clientCreditCards}" var="creditCard">
+        <p:panelGrid columns="4">
+            <p:outputLabel for="creditCardNumber" value="Número: "/>
+            <p:inputText id="creditCardNumber" value="#{creditCard.number}" />
+            
+            <p:outputLabel for="expirationDate" value="Data de expiração: "/>
+            <p:inputText id="expirationDate" value="#{creditCard.expirationDate}" />
+            
+            <p:outputLabel for="ccv" value="CCV: "/>
+            <p:inputText id="ccv" value="#{creditCard.ccv}" />
+        </p:panelGrid>
+    </ui:repeat>
+    <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addClientCreditCard}'></p:commandButton>
+
+    <p:commandButton value="Salvar" action="#{MBClients.actionCrud('save')}" ajax="false" />
 </html>
 
