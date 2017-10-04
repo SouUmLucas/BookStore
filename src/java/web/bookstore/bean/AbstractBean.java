@@ -2,6 +2,8 @@ package web.bookstore.bean;
 
 import java.util.HashMap;
 import java.util.Map;
+import web.bookstore.bean.services.IService;
+import web.bookstore.bean.services.impl.CreditCardService;
 import web.bookstore.command.ICommand;
 import web.bookstore.command.impl.DeleteCommand;
 import web.bookstore.command.impl.ListCommand;
@@ -18,8 +20,10 @@ public abstract class AbstractBean implements IBean {
     protected String view;
     protected DomainEntity domainEntity;
     protected static Map<String, ICommand> commands;
+    protected static Map<String, IService> services;
     
     public AbstractBean() {
+        // commands
         commands = new HashMap<>();
         commands.put("save", new SaveCommand());
         commands.put("update", new UpdateCommand());
@@ -27,6 +31,10 @@ public abstract class AbstractBean implements IBean {
         commands.put("delete", new DeleteCommand());
         commands.put("list", new ListCommand());
         commands.put("search", new SearchCommand());
+        
+        // services
+        services = new HashMap<>();
+        services.put("CreditCards", new CreditCardService());
     }
     
     public Result process(String action, DomainEntity entity) {

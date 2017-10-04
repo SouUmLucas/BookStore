@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h3>Editando</h3>
+    <p:growl id="message" autoUpdate="true" sticky="false" life="5000"/>
+    <h:panelGrid columns="2" style="margin: 1%" cellpadding="7">
+        <p:outputLabel for="gender" value="Gênero: "/>
+        <p:inputText id="gender" value="#{MBClients.client.gender}" />
+        
+        <p:outputLabel for="name" value="Nome: "/>
+        <p:inputText id="name" value="#{MBClients.client.name}" />
+        
+        <p:outputLabel for="birthdate" value="Data de nascimento: "/>
+        <p:calendar id="birthdate" value="#{MBClients.client.birthdate}" showOn="button" />
+        
+        <p:outputLabel for="cpf" value="CPF "/>
+        <p:inputText id="cpf" value="#{MBClients.client.cpf}" />
+        
+        <p:outputLabel for="phone" value="Telefone "/>
+        <p:inputText id="phone" value="#{MBClients.client.phone}" />
+        
+        <p:outputLabel for="email" value="Email: "/>
+        <p:inputText id="email" value="#{MBClients.client.email}" />
+        
+        <p:outputLabel for="password" value="Senha: "/>
+        <p:inputText id="password" value="#{MBClients.client.password}" />
+        
+        <p:outputLabel for="homeaddres" value="Endereço Residêncial: "/>
+        <p:inputText id="homeaddres" value="#{MBClients.client.homeAddress}" />
+        
+        <p:commandButton value="Salvar" action="#{MBClients.actionCrud('save')}" ajax="false" />
+    </h:panelGrid>
+</html>

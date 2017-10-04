@@ -1,12 +1,12 @@
 package web.bookstore.domain;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Client extends DomainEntity {
     private String gender;
     private String name;
-    private Calendar birthdate;
+    private Date birthdate;
     private String cpf;
     private String phone;
     private String email;
@@ -31,11 +31,11 @@ public class Client extends DomainEntity {
         this.name = name;
     }
 
-    public Calendar getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Calendar birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

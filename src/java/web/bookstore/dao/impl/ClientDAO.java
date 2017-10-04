@@ -1,13 +1,12 @@
 package web.bookstore.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,7 @@ public class ClientDAO extends AbstractDAO {
     @Override
     public DomainEntity save(DomainEntity entity) {
         Client client = (Client) entity;
-        String sql = "INSERT INTO categories(gender, name, birthdate, cpf, phone, email, password, homeaddress) " +
+        String sql = "INSERT INTO clients(gender, name, birthdate, cpf, phone, email, password, home_address) " +
                      "VALUES(?,?,?,?,?,?,?,?)";
         
         
@@ -32,7 +31,7 @@ public class ClientDAO extends AbstractDAO {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, client.getGender());
             ps.setString(2, client.getName());
-            ps.setDate(3, (Date) client.getBirthdate().getTime());
+            ps.setDate(3, new java.sql.Date(client.getBirthdate().getTime()));
             ps.setString(4, client.getCpf());
             ps.setString(5, client.getPhone());
             ps.setString(6, client.getEmail());
@@ -47,8 +46,8 @@ public class ClientDAO extends AbstractDAO {
             }
             
             ps.close();
-        } catch(SQLException e) {
-            e.printStackTrace();
+        } catch(SQLException ex) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -61,7 +60,7 @@ public class ClientDAO extends AbstractDAO {
     public DomainEntity update(DomainEntity entity) {
         Client client = (Client) entity;
         
-        String sql = "UPDATE public.clients " +
+        String sql = "UPDATE clients " +
                      "SET gender = ?, name = ?, birthdate = ?, cpf = ?, phone = ?, email = ?, password = ? homeaddress = ? " +
                      "WHERE id = ?";
         
@@ -69,7 +68,7 @@ public class ClientDAO extends AbstractDAO {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, client.getGender());
             ps.setString(2, client.getName());
-            ps.setDate(3, (Date) client.getBirthdate().getTime());
+            ps.setDate(3, new java.sql.Date(client.getBirthdate().getTime()));
             ps.setString(4, client.getCpf());
             ps.setString(5, client.getPhone());
             ps.setString(6, client.getEmail());
@@ -84,8 +83,8 @@ public class ClientDAO extends AbstractDAO {
             updateRelations(client);
             
             ps.close();
-        } catch(SQLException e) {
-            e.printStackTrace();
+        } catch(SQLException ex) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return client;
@@ -102,9 +101,7 @@ public class ClientDAO extends AbstractDAO {
             
             if(result.next()) {
                 client.setId(result.getInt("id"));
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(result.getDate("birthdate"));
-                client.setBirthdate(cal);
+                client.setBirthdate(result.getDate("birthdate"));
                 client.setCpf(result.getString("cpf"));
                 client.setEmail(result.getString("email"));
                 client.setGender(result.getString("gender"));
@@ -117,7 +114,7 @@ public class ClientDAO extends AbstractDAO {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return client;
@@ -150,9 +147,7 @@ public class ClientDAO extends AbstractDAO {
             while(result.next()) {
                 Client client = new Client();
                 client.setId(result.getInt("id"));
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(result.getDate("birthdate"));
-                client.setBirthdate(cal);
+                client.setBirthdate(result.getDate("birthdate"));
                 client.setCpf(result.getString("cpf"));
                 client.setEmail(result.getString("email"));
                 client.setGender(result.getString("gender"));
@@ -166,7 +161,7 @@ public class ClientDAO extends AbstractDAO {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return clients;
@@ -182,11 +177,9 @@ public class ClientDAO extends AbstractDAO {
     }
 
     private void updateRelations(DomainEntity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void selectRelations(DomainEntity client) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
