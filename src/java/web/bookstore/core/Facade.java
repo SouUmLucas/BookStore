@@ -1,5 +1,6 @@
 package web.bookstore.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +19,18 @@ import web.bookstore.domain.CreditCard;
 import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.DomainEntity;
 import web.bookstore.domain.Result;
+import web.bookstore.strategies.ClientCreditCardStrategy;
+import web.bookstore.strategies.ClientStrategy;
+import web.bookstore.strategies.DeliveryAddressStrategy;
 import web.bookstore.strategies.IStrategy;
+import web.bookstore.strategies.PasswordConfirmationStrategy;
 
 public class Facade implements IFacade {
     private Map<String, IDAO> daos;
     private Map<String, List<IStrategy>> bookStrategy;
+    private Map<String, List<IStrategy>> clientStrategy;
+    private Map<String, List<IStrategy>> clientCreditCardsStrategies;
+    private Map<String, List<IStrategy>> DeliveryAddressesStrategies;
     
     private Map<String, Map<String, List<IStrategy>>> strategies;
     private Result result;
@@ -30,6 +38,10 @@ public class Facade implements IFacade {
     public Facade() {
         daos = new HashMap<>();
         bookStrategy = new HashMap<>();
+        clientStrategy = new HashMap<>();
+        clientCreditCardsStrategies = new HashMap<>();
+        DeliveryAddressesStrategies = new HashMap<>();
+        
         strategies = new HashMap<>();
         
         daos.put(Book.class.getName(), new BookDAO());
@@ -38,11 +50,19 @@ public class Facade implements IFacade {
         daos.put(CreditCard.class.getName(), new CreditCardDAO());
         daos.put(ClientCreditCard.class.getName(), new ClientCreditCardDAO());
         daos.put(DeliveryAddress.class.getName(), new DeliveryAddressDAO());
+        
+        List<IStrategy> clientSaveStrategies = new ArrayList<>();
+        clientSaveStrategies.add(new PasswordConfirmationStrategy());
+        clientSaveStrategies.add(new ClientStrategy());
+        clientStrategy.put("save", clientSaveStrategies);
+        clientStrategy.put("update", clientSaveStrategies);
+        strategies.put(Client.class.getName(), clientStrategy);
     }
 
     @Override
     public Result save(DomainEntity entity) {
         result = new Result();
+        result.setEntity(entity);
         String message = validate(entity, "save");
         
         if(message == null) {
@@ -67,6 +87,7 @@ public class Facade implements IFacade {
     @Override
     public Result update(DomainEntity entity) {
         result = new Result();
+        result.setEntity(entity);
         String message = validate(entity, "update");
         
         if(message == null) {

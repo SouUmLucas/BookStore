@@ -28,7 +28,10 @@
         <p:inputText id="email" value="#{MBClients.client.email}" />
         
         <p:outputLabel for="password" value="Senha: "/>
-        <p:inputText id="password" value="#{MBClients.client.password}" />
+        <p:password id="password" value="#{MBClients.client.password}" feedback="true" />
+        
+        <p:outputLabel for="passwordConfirmation" value="Confirmação de Senha: "/>
+        <p:password id="passwordConfirmation" value="#{MBClients.client.passwordConfirmation}" />
         
         <p:outputLabel for="homeaddres" value="Endereço Residêncial: "/>
         <p:inputText id="homeaddres" value="#{MBClients.client.homeAddress}" />
@@ -63,14 +66,16 @@
             
             <p:outputLabel for="country" value="País: "/>
             <p:inputText id="country" value="#{deliveryAddress.country}" />
+            
         </h:panelGrid>
+        <br/>
     </ui:repeat>
     
     <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addDeliveryAddress}'></p:commandButton>
     
     <h3>Cartões de crédito</h3>
     <ui:repeat value="#{MBClients.clientCreditCards}" var="clientCreditCard">
-        
+        <h:panelGrid columns="2">
             <p:outputLabel for="creditCardNumber" value="Número: "/>
             <p:inputText id="creditCardNumber" value="#{clientCreditCard.number}" />
             
@@ -85,7 +90,8 @@
                              effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                 <f:selectItems value="#{MBClients.creditCards}" var="cc" itemLabel="#{cc.name}" itemValue="#{cc}" />
             </p:selectOneMenu>
-        
+            <br/>
+        </h:panelGrid>
     </ui:repeat>
     <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addClientCreditCard}'></p:commandButton>
 

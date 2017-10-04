@@ -52,6 +52,8 @@ public class ClientsBean extends AbstractBean {
             clients = (ArrayList<Client>) (List<?>) result.getEntities();
         } else {
             client = (Client) result.getEntity();
+            clientCreditCards = (ArrayList<ClientCreditCard>) client.getClientCreditCards();
+            deliveryAddresses = (ArrayList<DeliveryAddress>) client.getDeliveryAddresses();
         }
         
         view = this.setView(result.getMessage(), action);

@@ -12,14 +12,15 @@ import java.util.logging.Logger;
 import web.bookstore.dao.factory.DAOFactory;
 import web.bookstore.domain.Client;
 import web.bookstore.domain.ClientCreditCard;
+import web.bookstore.domain.CreditCard;
 import web.bookstore.domain.DomainEntity;
 
 public class ClientCreditCardDAO extends AbstractDAO {
     
-    private Client cliente;
+    private Client client;
 
     public void setCliente(Client cliente) {
-        this.cliente = cliente;
+        this.client = cliente;
     }
 
     public ClientCreditCardDAO() {
@@ -61,7 +62,7 @@ public class ClientCreditCardDAO extends AbstractDAO {
         ClientCreditCard clientCreditCard = (ClientCreditCard) entity;
         
         String sql = "UPDATE public.clientcreditcards " +
-                     " SET fk_client= ?, \"number\"= ?, expiration_date= ?, ccv= ?, fk_creditcard= ? " +
+                     " SET fk_client= ?, number = ?, expiration_date= ?, ccv= ?, fk_creditcard= ? " +
                      " WHERE id = ?";
         
         try (Connection conn = DAOFactory.connect()) {
@@ -96,7 +97,7 @@ public class ClientCreditCardDAO extends AbstractDAO {
             
             if(result.next()) {
                 clientCreditCard.setId(result.getInt("id"));
-                clientCreditCard.setClient(cliente);
+                clientCreditCard.setClient(client);
                 clientCreditCard.setCreditCard(null);
                 clientCreditCard.setExpirationDate(result.getString("expiration_date"));
                 clientCreditCard.setNumber(result.getString("number"));
@@ -126,7 +127,8 @@ public class ClientCreditCardDAO extends AbstractDAO {
 
     @Override
     public List<DomainEntity> list(DomainEntity entity) {
-        String sql = "SELECT * FROM clientcreditcards";
+        this.client = (Client) entity;
+        String sql = "SELECT * FROM clientcreditcards WHERE fk_client = " + entity.getId();
         List<DomainEntity> clientCreditCards = new ArrayList<>();
         
         try(Connection conn = DAOFactory.connect()) {
@@ -136,10 +138,12 @@ public class ClientCreditCardDAO extends AbstractDAO {
             while(result.next()) {
                 ClientCreditCard clientCreditCard = new ClientCreditCard();
                 clientCreditCard.setId(result.getInt("id"));
-                clientCreditCard.setClient(cliente);
-                clientCreditCard.setCreditCard(null);
+                clientCreditCard.setClient(client);
+                
+                clientCreditCard.setCreditCard(findCreditCard(result.getInt("fk_creditcard")));
                 clientCreditCard.setExpirationDate(result.getString("expiration_date"));
                 clientCreditCard.setNumber(result.getString("number"));
+                clientCreditCard.setCcv(result.getString("ccv"));
                 clientCreditCards.add(clientCreditCard);
             }
             ps.close();
@@ -155,4 +159,10 @@ public class ClientCreditCardDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private CreditCard findCreditCard(int id) {
+        CreditCardDAO dao = new CreditCardDAO();
+        CreditCard cc = new CreditCard();
+        cc.setId(id);
+        return (CreditCard) dao.select(cc);
+    }
 }

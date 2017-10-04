@@ -61,7 +61,7 @@ public class ClientDAO extends AbstractDAO {
         Client client = (Client) entity;
         
         String sql = "UPDATE clients " +
-                     "SET gender = ?, name = ?, birthdate = ?, cpf = ?, phone = ?, email = ?, password = ? home_address = ? " +
+                     "SET gender = ?, name = ?, birthdate = ?, cpf = ?, phone = ?, email = ?, password = ?, home_address = ? , active = ?" +
                      "WHERE id = ?";
         
         try (Connection conn = DAOFactory.connect()) {
@@ -74,7 +74,8 @@ public class ClientDAO extends AbstractDAO {
             ps.setString(6, client.getEmail());
             ps.setString(7, client.getPassword());
             ps.setString(8, client.getHomeAddress());
-            ps.setInt(9, client.getId());
+            ps.setBoolean(9, client.isActive());
+            ps.setInt(10, client.getId());
 
             if(ps.executeUpdate() > 0) {
                 ResultSet generatedKey = ps.getGeneratedKeys();
@@ -109,6 +110,7 @@ public class ClientDAO extends AbstractDAO {
                 client.setName(result.getString("name"));
                 client.setPassword(result.getString("password"));
                 client.setPhone(result.getString("phone"));
+                client.setActive(result.getBoolean("active"));
                 
                 selectRelations(client);
             }
@@ -155,6 +157,7 @@ public class ClientDAO extends AbstractDAO {
                 client.setName(result.getString("name"));
                 client.setPassword(result.getString("password"));
                 client.setPhone(result.getString("phone"));
+                client.setActive(result.getBoolean("active"));
                 selectRelations(client);
                 
                 clients.add(client);
@@ -188,9 +191,39 @@ public class ClientDAO extends AbstractDAO {
     }
 
     private void updateRelations(DomainEntity entity) {
+        IFacade facade = new Facade();
+        Client client = (Client) entity;
+        for(ClientCreditCard c : client.getClientCreditCards()) {
+            c.setClient(client);
+            
+            if(c.getId() != 0) 
+                facade.update(c);
+            else
+                facade.save(c);
+        }
+        
+        for(DeliveryAddress d : client.getDeliveryAddresses()) {
+            d.setClient(client);
+            
+            if (d.getId() != 0)
+                facade.update(d);
+            else
+                facade.save(d);
+        }
     }
 
     private void selectRelations(DomainEntity entity) {
+        Client client = (Client) entity;
+        
+        DeliveryAddressDAO deliveryAddressDAO = new DeliveryAddressDAO();
+        ArrayList<DeliveryAddress> deliveryAddresses;
+        deliveryAddresses = (ArrayList<DeliveryAddress>) (List<?>) deliveryAddressDAO.list(client);
+        client.setDeliveryAddresses(deliveryAddresses);
+        
+        ClientCreditCardDAO clientCreditDAO = new ClientCreditCardDAO();
+        ArrayList<ClientCreditCard> clientCreditCards;
+        clientCreditCards = (ArrayList<ClientCreditCard>) (List<?>) clientCreditDAO.list(client);
+        client.setClientCreditCards(clientCreditCards);
     }
     
 }

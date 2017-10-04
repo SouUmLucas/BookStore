@@ -12,8 +12,10 @@ public class Client extends DomainEntity {
     private String email;
     private String homeAddress;
     private String password;
+    private String passwordConfirmation;
     private List<DeliveryAddress> deliveryAddresses;
     private List<ClientCreditCard> clientCreditCards;
+    private boolean active;
 
     public String getGender() {
         return gender;
@@ -93,5 +95,21 @@ public class Client extends DomainEntity {
 
     public void setClientCreditCards(List<ClientCreditCard> clientCreditCards) {
         this.clientCreditCards = clientCreditCards;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
     }
 }

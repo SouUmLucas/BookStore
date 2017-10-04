@@ -143,7 +143,8 @@ public class DeliveryAddressDAO extends AbstractDAO {
 
     @Override
     public List<DomainEntity> list(DomainEntity entity) {
-        String sql = "SELECT * FROM deliveryaddresses WHERE id = " + entity.getId();
+        client = (Client) entity;
+        String sql = "SELECT * FROM deliveryaddresses WHERE fk_client = " + entity.getId();
         List<DomainEntity> deliveryAddresses = new ArrayList<>();
         
         try(Connection conn = DAOFactory.connect()) {
