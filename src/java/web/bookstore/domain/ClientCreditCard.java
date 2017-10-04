@@ -3,9 +3,9 @@ package web.bookstore.domain;
 public class ClientCreditCard extends DomainEntity {
     private Client client;
     private String number;
-    private String name;
     private String expirationDate;
     private String ccv;
+    private CreditCard creditCard;
     
     public Client getClient() {
         return client;
@@ -23,14 +23,6 @@ public class ClientCreditCard extends DomainEntity {
         this.number = number;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getExpirationDate() {
         return expirationDate;
     }
@@ -45,5 +37,13 @@ public class ClientCreditCard extends DomainEntity {
 
     public void setCcv(String ccv) {
         this.ccv = ccv;
+    }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 }

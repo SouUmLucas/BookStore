@@ -1,6 +1,6 @@
 package web.bookstore.domain;
 
-public class DeliveryAddress {
+public class DeliveryAddress extends DomainEntity {
     private Client client;
     private String residenceType;
     private String streetType; // tipo de logradouro

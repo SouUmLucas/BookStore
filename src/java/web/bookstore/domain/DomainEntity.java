@@ -2,7 +2,7 @@ package web.bookstore.domain;
 
 public abstract class DomainEntity {
     
-    private int id;
+    int id;
 
     public int getId() {
         return id;

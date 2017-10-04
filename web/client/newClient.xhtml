@@ -44,7 +44,7 @@
             <p:inputText id="streetType" value="#{deliveryAddress.streetType}" />
             
             <p:outputLabel for="streetName" value="Nome da rua: "/>
-            <p:inputText id="streetType" value="#{deliveryAddress.streetName}" />
+            <p:inputText id="streetName" value="#{deliveryAddress.streetName}" />
             
             <p:outputLabel for="streetNumber" value="Número: "/>
             <p:inputText id="streetNumber" value="#{deliveryAddress.number}" />
@@ -65,20 +65,27 @@
             <p:inputText id="country" value="#{deliveryAddress.country}" />
         </h:panelGrid>
     </ui:repeat>
+    
     <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addDeliveryAddress}'></p:commandButton>
     
     <h3>Cartões de crédito</h3>
-    <ui:repeat value="#{MBClients.clientCreditCards}" var="creditCard">
-        <p:panelGrid columns="4">
+    <ui:repeat value="#{MBClients.clientCreditCards}" var="clientCreditCard">
+        
             <p:outputLabel for="creditCardNumber" value="Número: "/>
-            <p:inputText id="creditCardNumber" value="#{creditCard.number}" />
+            <p:inputText id="creditCardNumber" value="#{clientCreditCard.number}" />
             
             <p:outputLabel for="expirationDate" value="Data de expiração: "/>
-            <p:inputText id="expirationDate" value="#{creditCard.expirationDate}" />
+            <p:inputText id="expirationDate" value="#{clientCreditCard.expirationDate}" />
             
             <p:outputLabel for="ccv" value="CCV: "/>
-            <p:inputText id="ccv" value="#{creditCard.ccv}" />
-        </p:panelGrid>
+            <p:inputText id="ccv" value="#{clientCreditCard.ccv}" />
+            
+            <p:outputLabel for="bandeira" value="Bandeira: "/>
+            <p:selectOneMenu id="bandeira" value="#{clientCreditCard.creditCard}" converter="creditCardConverter" panelStyle="width:180px"
+                             effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                <f:selectItems value="#{MBClients.creditCards}" var="cc" itemLabel="#{cc.name}" itemValue="#{cc}" />
+            </p:selectOneMenu>
+        
     </ui:repeat>
     <p:commandButton value="Adicionar" update="@form" action='#{MBClients.addClientCreditCard}'></p:commandButton>
 

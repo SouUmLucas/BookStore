@@ -10,8 +10,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import web.bookstore.core.Facade;
+import web.bookstore.core.IFacade;
 import web.bookstore.dao.factory.DAOFactory;
 import web.bookstore.domain.Client;
+import web.bookstore.domain.ClientCreditCard;
+import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.DomainEntity;
 
 public class ClientDAO extends AbstractDAO {
@@ -44,15 +48,11 @@ public class ClientDAO extends AbstractDAO {
                     client.setId(generatedKey.getInt(1));
                 }
             }
-            
+            saveRelations(client);
             ps.close();
         } catch(SQLException ex) {
             Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        saveRelations(client);
-        
         return client;     
     }
 
@@ -173,13 +173,24 @@ public class ClientDAO extends AbstractDAO {
     }
 
     private boolean saveRelations(DomainEntity entity) {
+        IFacade facade = new Facade();
+        Client client = (Client) entity;
+        for(ClientCreditCard c : client.getClientCreditCards()) {
+            c.setClient(client);
+            facade.save(c);
+        }
+        
+        for(DeliveryAddress d : client.getDeliveryAddresses()) {
+            d.setClient(client);
+            facade.save(d);
+        }
         return true;
     }
 
     private void updateRelations(DomainEntity entity) {
     }
 
-    private void selectRelations(DomainEntity client) {
+    private void selectRelations(DomainEntity entity) {
     }
     
 }

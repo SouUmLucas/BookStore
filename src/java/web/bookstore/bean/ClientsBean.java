@@ -9,7 +9,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import web.bookstore.domain.Client;
+import web.bookstore.domain.ClientCreditCard;
 import web.bookstore.domain.CreditCard;
+import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.Result;
 
 @ManagedBean(name = "MBClients")
@@ -19,6 +21,8 @@ public class ClientsBean extends AbstractBean {
     private Result result;
     private Client client;
     private ArrayList<CreditCard> creditCards;
+    private ArrayList<ClientCreditCard> clientCreditCards;
+    private ArrayList<DeliveryAddress> deliveryAddresses;
     
     private ArrayList<Client> clients;
     private String view;
@@ -27,11 +31,22 @@ public class ClientsBean extends AbstractBean {
     public void init() {
         client = new Client();
         domainEntity = new Client();
-        //creditCards = (ArrayList<CreditCard>) (List<?>) services.get("CreditCard").getEntity();
+        
+        // relations
+        clientCreditCards = new ArrayList<>();
+        deliveryAddresses = new ArrayList<>();
+        
+        // must have at least one credit card and delivery address
+        clientCreditCards.add(new ClientCreditCard());
+        deliveryAddresses.add(new DeliveryAddress());
+        creditCards = (ArrayList<CreditCard>) (List<?>) services.get("CreditCards").getEntity();
     }
     @Override
     public void actionCrud(String action) {
         client.setId(domainEntity.getId());
+        client.setDeliveryAddresses(deliveryAddresses);
+        client.setClientCreditCards(clientCreditCards);
+        
         result = process(action, client);
         if(action.equals("list") || action.equals("search")) {
             clients = (ArrayList<Client>) (List<?>) result.getEntities();
@@ -64,6 +79,14 @@ public class ClientsBean extends AbstractBean {
         domainEntity = new Client();
     }
     
+    public void addClientCreditCard() {
+        clientCreditCards.add(new ClientCreditCard());
+    }
+    
+    public void addDeliveryAddress() {
+        deliveryAddresses.add(new DeliveryAddress());
+    }
+    
     public Result getResult() {
         return result;
     }
@@ -94,6 +117,22 @@ public class ClientsBean extends AbstractBean {
 
     public void setClients(ArrayList<Client> clients) {
         this.clients = clients;
+    }
+
+    public ArrayList<ClientCreditCard> getClientCreditCards() {
+        return clientCreditCards;
+    }
+
+    public void setClientCreditCards(ArrayList<ClientCreditCard> clientCreditCards) {
+        this.clientCreditCards = clientCreditCards;
+    }
+
+    public ArrayList<DeliveryAddress> getDeliveryAddresses() {
+        return deliveryAddresses;
+    }
+
+    public void setDeliveryAddresses(ArrayList<DeliveryAddress> deliveryAddresses) {
+        this.deliveryAddresses = deliveryAddresses;
     }
 
     public String getView() {
