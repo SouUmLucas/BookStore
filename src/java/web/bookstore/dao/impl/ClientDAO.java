@@ -61,7 +61,7 @@ public class ClientDAO extends AbstractDAO {
         Client client = (Client) entity;
         
         String sql = "UPDATE clients " +
-                     "SET gender = ?, name = ?, birthdate = ?, cpf = ?, phone = ?, email = ?, password = ? homeaddress = ? " +
+                     "SET gender = ?, name = ?, birthdate = ?, cpf = ?, phone = ?, email = ?, password = ? home_address = ? " +
                      "WHERE id = ?";
         
         try (Connection conn = DAOFactory.connect()) {
@@ -105,7 +105,7 @@ public class ClientDAO extends AbstractDAO {
                 client.setCpf(result.getString("cpf"));
                 client.setEmail(result.getString("email"));
                 client.setGender(result.getString("gender"));
-                client.setHomeAddress(result.getString("homeaddress"));
+                client.setHomeAddress(result.getString("home_address"));
                 client.setName(result.getString("name"));
                 client.setPassword(result.getString("password"));
                 client.setPhone(result.getString("phone"));
@@ -137,7 +137,7 @@ public class ClientDAO extends AbstractDAO {
 
     @Override
     public List<DomainEntity> list(DomainEntity entity) {
-        String sql = "SELECT * FROM clients WHERE id = " + entity.getId();
+        String sql = "SELECT * FROM clients";
         List<DomainEntity> clients = new ArrayList<>();
         
         try(Connection conn = DAOFactory.connect()) {
@@ -151,7 +151,7 @@ public class ClientDAO extends AbstractDAO {
                 client.setCpf(result.getString("cpf"));
                 client.setEmail(result.getString("email"));
                 client.setGender(result.getString("gender"));
-                client.setHomeAddress(result.getString("homeaddress"));
+                client.setHomeAddress(result.getString("home_address"));
                 client.setName(result.getString("name"));
                 client.setPassword(result.getString("password"));
                 client.setPhone(result.getString("phone"));

@@ -6,6 +6,9 @@
     <h3>Editando</h3>
     <p:growl id="message" autoUpdate="true" sticky="false" life="5000"/>
     <h:panelGrid columns="2" style="margin: 1%" cellpadding="7">
+        <p:outputLabel for="id" value="ID: "/>
+        <p:inputText id="id" value="#{MBClients.client.id}" readonly="true" />
+        
         <p:outputLabel for="gender" value="Gênero: "/>
         <p:inputText id="gender" value="#{MBClients.client.gender}" />
         
@@ -30,6 +33,7 @@
         <p:outputLabel for="homeaddres" value="Endereço Residêncial: "/>
         <p:inputText id="homeaddres" value="#{MBClients.client.homeAddress}" />
         
-        <p:commandButton value="Salvar" action="#{MBClients.actionCrud('save')}" ajax="false" />
+        <p:commandButton value="Salvar" action="#{MBClients.actionCrud('update')}" ajax="false" />
+        <p:commandButton value="Apagar" action="#{MBClients.actionCrud('delete')}" ajax="false" />
     </h:panelGrid>
 </html>
