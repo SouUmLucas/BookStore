@@ -19,9 +19,7 @@ import web.bookstore.domain.CreditCard;
 import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.DomainEntity;
 import web.bookstore.domain.Result;
-import web.bookstore.strategies.ClientCreditCardStrategy;
 import web.bookstore.strategies.ClientStrategy;
-import web.bookstore.strategies.DeliveryAddressStrategy;
 import web.bookstore.strategies.IStrategy;
 import web.bookstore.strategies.PasswordConfirmationStrategy;
 

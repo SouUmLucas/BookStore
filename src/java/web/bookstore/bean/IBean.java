@@ -1,7 +1,6 @@
 package web.bookstore.bean;
 
 import javax.faces.event.ActionEvent;
-import web.bookstore.domain.DomainEntity;
 
 public interface IBean {
     public void actionCrud(String action);

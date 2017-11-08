@@ -1,6 +1,5 @@
 package web.bookstore.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
