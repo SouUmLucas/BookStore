@@ -12,16 +12,8 @@ import web.bookstore.dao.factory.DAOFactory;
 import web.bookstore.domain.Audit;
 import web.bookstore.domain.DomainEntity;
 
-/**
- *
- * @author lucas
- */
 public class AuditDAO extends AbstractDAO {
-
-    public AuditDAO() {
-        super("audit");
-    }
-
+    
     @Override
     public DomainEntity save(DomainEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

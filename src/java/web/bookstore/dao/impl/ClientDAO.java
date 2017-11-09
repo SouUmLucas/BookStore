@@ -19,10 +19,6 @@ import web.bookstore.domain.DomainEntity;
 
 public class ClientDAO extends AbstractDAO {
 
-    public ClientDAO() {
-        super("Client");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         Client client = (Client) entity;

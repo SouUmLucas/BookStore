@@ -12,10 +12,6 @@ public abstract class AbstractDAO implements IDAO {
     String table;
     Connection connection;
     
-    AbstractDAO(String table) {
-        this.table = table;
-    }
-    
     protected void openConnection() {
         try {
             if(connection == null || connection.isClosed()) {
@@ -25,5 +21,4 @@ public abstract class AbstractDAO implements IDAO {
             Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

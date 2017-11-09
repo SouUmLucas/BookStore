@@ -12,10 +12,6 @@ import web.bookstore.domain.PriceGroup;
 
 public class PriceGroupDAO extends AbstractDAO {
 
-    public PriceGroupDAO() {
-        super("pricegroup");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         PriceGroup priceGroup = (PriceGroup) entity;

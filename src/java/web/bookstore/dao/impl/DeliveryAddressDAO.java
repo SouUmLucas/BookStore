@@ -18,14 +18,6 @@ public class DeliveryAddressDAO extends AbstractDAO {
     
     private Client client;
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public DeliveryAddressDAO() {
-        super("DeliveryAddress");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         DeliveryAddress deliveryAddress = (DeliveryAddress) entity;

@@ -15,10 +15,6 @@ import web.bookstore.domain.DomainEntity;
 
 public class CreditCardDAO extends AbstractDAO {
 
-    public CreditCardDAO() {
-        super("CreditCards");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         CreditCard creditCard = (CreditCard) entity;

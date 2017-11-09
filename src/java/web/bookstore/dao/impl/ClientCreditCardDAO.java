@@ -23,10 +23,6 @@ public class ClientCreditCardDAO extends AbstractDAO {
         this.client = cliente;
     }
 
-    public ClientCreditCardDAO() {
-        super("ClientCreditCard");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         ClientCreditCard clientCreditCard = (ClientCreditCard) entity;

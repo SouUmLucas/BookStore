@@ -15,10 +15,6 @@ import web.bookstore.domain.DomainEntity;
 
 public class CategoryDAO extends AbstractDAO {
 
-    public CategoryDAO() {
-        super("categories");
-    }
-
     @Override
     public DomainEntity save(DomainEntity entity) {
         Category category = (Category) entity;
