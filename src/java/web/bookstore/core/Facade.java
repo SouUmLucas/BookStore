@@ -11,6 +11,7 @@ import web.bookstore.dao.impl.ClientCreditCardDAO;
 import web.bookstore.dao.impl.ClientDAO;
 import web.bookstore.dao.impl.CreditCardDAO;
 import web.bookstore.dao.impl.DeliveryAddressDAO;
+import web.bookstore.dao.impl.OrderDAO;
 import web.bookstore.domain.Audit;
 import web.bookstore.domain.Book;
 import web.bookstore.domain.Client;
@@ -19,6 +20,7 @@ import web.bookstore.domain.CreditCard;
 import web.bookstore.domain.DeliveryAddress;
 import web.bookstore.domain.DomainEntity;
 import web.bookstore.domain.Result;
+import web.bookstore.domain.Order;
 import web.bookstore.strategies.ClientStrategy;
 import web.bookstore.strategies.IStrategy;
 import web.bookstore.strategies.PasswordConfirmationStrategy;
@@ -35,12 +37,6 @@ public class Facade implements IFacade {
     
     public Facade() {
         daos = new HashMap<>();
-        bookStrategy = new HashMap<>();
-        clientStrategy = new HashMap<>();
-        clientCreditCardsStrategies = new HashMap<>();
-        DeliveryAddressesStrategies = new HashMap<>();
-        
-        strategies = new HashMap<>();
         
         daos.put(Book.class.getName(), new BookDAO());
         daos.put(Audit.class.getName(), new AuditDAO());
@@ -48,12 +44,27 @@ public class Facade implements IFacade {
         daos.put(CreditCard.class.getName(), new CreditCardDAO());
         daos.put(ClientCreditCard.class.getName(), new ClientCreditCardDAO());
         daos.put(DeliveryAddress.class.getName(), new DeliveryAddressDAO());
-        
+        daos.put(Order.class.getName(), new OrderDAO());
+                
+        // Client Strategies
+        clientStrategy = new HashMap<>();
         List<IStrategy> clientSaveStrategies = new ArrayList<>();
         clientSaveStrategies.add(new PasswordConfirmationStrategy());
         clientSaveStrategies.add(new ClientStrategy());
         clientStrategy.put("save", clientSaveStrategies);
         clientStrategy.put("update", clientSaveStrategies);
+        
+        // Client's credit cards Strategies
+        clientCreditCardsStrategies = new HashMap<>();
+        
+        // Delivery addresses Strategies
+        DeliveryAddressesStrategies = new HashMap<>();
+        
+        // Books Strategies
+        bookStrategy = new HashMap<>();
+        
+        // All entities strategies
+        strategies = new HashMap<>();
         strategies.put(Client.class.getName(), clientStrategy);
     }
 
